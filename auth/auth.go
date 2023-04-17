@@ -16,7 +16,7 @@ func ApiQrcode(c *gin.Context) {
 	issuser := c.Request.URL.Query().Get("issuser")
 	code := c.Request.URL.Query().Get("code")
 
-	var flag string
+	var flag string = "error"
 	//查询用户信息
 	result, err := sqlite.SearchUsername(issuser)
 	log.Printf("result.Secretid", result)
@@ -30,9 +30,7 @@ func ApiQrcode(c *gin.Context) {
 
 	if string(icode) == code {
 		flag = "ok"
-	} else {
-		flag = "error"
-	}
+	} 
 
 	c.String(http.StatusOK, fmt.Sprintf("%s", flag))
 
